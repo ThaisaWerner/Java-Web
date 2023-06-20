@@ -78,15 +78,27 @@ public class CidadeController {
             return "redirect:/";
         }
 
-        @GetMapping("/preparaAlterar")
+    /* Depois de alterarmos o botão no arquivo crud.ftl, criamos aqui o método que será responsável por tratar a solicitação de alteração quando
+     * a usuária clica no botão de alterar. */
+        @GetMapping("/preparaAlterar") /* Anotação que faz o mapeamento com a URL da alteração, a mesma que colocamos no arquivo crud.ftl */
         public String preparaAlterar(
 
+        /* Assim como no método excluir, esse método recere dois parâmetros que representam o nome da cidade e do estado.
+         * O método de alterar deve recuperar a cidade e o estado que a usuária informou pelos parâmetros e colocar essas informações na
+         * memória da solicitação e recarregar a página. Para isso utilizamos um outro parâmetro do tipo "org.springframework.ui.Model", 
+         * que é o Model memoria. */
             @RequestParam String nome,
             @RequestParam String estado,
             Model memoria
 
         ) {
 
+        /* Agora, o método precisa recuperar essas informações do model e colocá-las na memória. Para isso usamos o atributo cidades para que
+         * tenhamos acesso a lista de cidades e filtramos (.filter) apenas a cidade na qual o nome e o estado são iguais as informações que 
+         * foram passadas como parâmetros (getNome(). equals....). 
+         * 
+         * Como terá apenas uma combinação cidade/estado, podemos usar o método findAny() para recuperar um objeto (java.util.Optional) que 
+         * encapsule a cidade buscada*/
             var cidadeAtual = cidades
                                 .stream()
                                 .filter(cidade -> 
@@ -94,6 +106,18 @@ public class CidadeController {
                                             cidade.getEstado().equals(estado)
                                 ).findAny();
 
+        /* Se existir uma cidade que bata com as informações buscadas, ela será armazenada em um objeto do tipo Optional que será acessível pela
+         * variável cidadeAtual.
+         * O último passo é verificar se "cidadeAtual" não está vazia, caso não esteja adicionamo-as na memória da solicitação (memoria.addAttribute...).
+         * 
+         * Perceba que também adicionamos a lista de cidades na memoria. Precisamos disso porque esse método não fará um redirecionamento, ao invés disso,
+         * o método vai carregar a página diretamente. Então, se quisermos ver a lista de cidades no fim do processo, precisamos colocá-la na memória da
+         * solicitação.
+         * Nós não redirecionamos porque cada solicitação tem um tempo de vida, só existindo um caminho: o de ida ou o de volta, então se fizermos
+         * o redirecionamento, nesse caso o valor da "cidadeAtual" se perderá.
+         * 
+         * O último passo é retornar o nome da página carregada (return...)
+         */
             if (cidadeAtual.isPresent()) {
                 memoria.addAttribute("cidadeAtual", cidadeAtual.get());
                 memoria.addAttribute("listaCidades", cidades);
@@ -102,6 +126,11 @@ public class CidadeController {
             return "/crud";
         }
 
+    /* Esse método vai efetivamente enviar os dados para alterá-los na lista de cidades.
+     * Ele recebe três parâmetros. Os dois primeiros, representam os nomes atuais da cidade e do estado que devem ser alterados e o terceiro representa
+     * os novos valores que a usuária digitou e são recebidos da mesma maneira que acontece no método criar().
+     * Temos também a anotação de mapeamento do método com a URL de alteração enviada pelo crud (a mesma URL que está lá no crud).
+     */
         @PostMapping("/alterar")
         public String alterar(
             @RequestParam String nomeAtual,
@@ -109,6 +138,10 @@ public class CidadeController {
             Cidade cidade
         ) {
 
+        /* Ai primeiro precisamos remover a cidade atual, da mesma forma que foi feito no método excluir. Isso porque na prática cada cidade é imutável,
+         * não conseguimos alterar seus dados. Por isso, removemos e inserimos uma nova cidade com os novos dados.
+         * Aqui reutilizamos o método criar() porque ele faz exatamente o que queremos: insere os novos valores e redireciona para a página inicial.
+         */
             cidades.removeIf(cidadeAtual -> 
                                 cidadeAtual.getNome().equals(nomeAtual) && 
                                 cidadeAtual.getEstado().equals(estadoAtual)
@@ -116,6 +149,7 @@ public class CidadeController {
 
             criar(cidade);
 
+        /* O retorno nunca é usado de fato pois o método criar já faz isso. Mas ainda assim o colocamos para evitar erro de compilação. */
             return "redirect:/";
         }
 }

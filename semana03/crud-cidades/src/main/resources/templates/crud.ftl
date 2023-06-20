@@ -25,6 +25,8 @@
         </div>
 
         <!-- Operação alterar -->
+        <!-- Depois de alterarmos o código para mostrarmos os dados na tela, precisamos definir para onde os dados serão enviados, que é o que o código
+             abaixo faz. Ele verifica se cidadeAtual existe na memória da solicitação, se sim estaremos alterando a cidade, se não estaremos criando-a -->
 
             <#if cidadeAtual??>
                 <form action="/alterar" method="POST">
@@ -46,6 +48,9 @@
         
             <div class="form-group">
                 <label for="nome">Cidade:</label>
+            <!-- O último passo do alterar é carregar os dados na tela atualizando a página crud.ftl para que ela exiba os dados da "cidadeAtual" 
+                 se ela existir na memória. 
+                 Para isso, utiliza-se o atributo value da input para podermos definir os dados do campo. -->
                 <input value="${(cidadeAtual.nome)!}" name="nome" type="text" class="form-control" placeholder="Informe o nome da cidade" id="nome">
             </div>
 
@@ -54,6 +59,9 @@
                 <input value="${(cidadeAtual.estado)!}" name="estado" type="text" class="form-control" placeholder="Informe o estado ao qual a cidade pertence" id="estado">
             </div>
 
+    <!-- Operação alterar -->
+    <!-- A segunda alteração que precisa ser feita após termos alterado o código para mostrar os dados na tela, é alterar o botãoque envia o formulário. 
+         Aqui, também verificamos se cidadeAtual está na memória da solicitação, se sim o botão é concluir alteração, se não é criar. -->
         <#if cidadeAtual??>
             <button type="submit" class="btn btn-warning">CONCLUIR ALTERAÇÃO</button>
         <#else>
@@ -86,6 +94,15 @@
                         <td>
                             <div class="d-flex d-justify-content-center">
                                 <!-- Operação prepara alterar -->
+                                <!-- A alteração é a operação mais complexa de se fazer. A primeira coisa a se fazer, é carregar os dados na tela, para isso
+                                     começamos inserindo comportamento no botão alterar, conforme abaixo.
+
+                                     href identifica para onde a solicitação será enviada, nesse caso estamos considerando uma URL /prepararAlterar.
+                                     A mesma URL deve ser usada no controller quando fizermos o mapeamento do método por lá.
+
+                                     Assim como no botão excluir, precisamos enviar o nome e estado para que a cidade desejada pela usária seja encontrada,
+                                     essas informações são enviadas como parâmetros e são extraídas da lista de cidades usando a sintaxe de interpolação
+                                     do freemarker -->
                                 <a href="/preparaAlterar?nome=${cidade.nome}&estado=${cidade.estado}" class="btn btn-warning mr-3">ALTERAR</a>
 
                                 <!-- Operação excluir.
