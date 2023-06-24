@@ -21,6 +21,9 @@
 
         <!-- Apresentando mensagens na tela (depois de POST) -->
             <#if cidadeAtual??>
+            <!-- Ajustando para a página exibir as mensagens de erro. caso existam.
+                 Adicionando o atributo novalidate para evitar que o formulário use as mensagens padrão do HTML
+                 E precisamos adicionar também a classe needs-validation que é do bootstrap. Ela especifica que esse formulário possui validações-->
                 <form action="/alterar" method="POST" class="needs-validation" novalidate>
                 <input type="hidden" name="nomeAtual" value="${(cidadeAtual.nome)!}" />
                 <input type="hidden" name="estadoAtual" value="${(cidadeAtual.estado)!}" />
@@ -33,9 +36,16 @@
                 <label for="nome">Cidade:</label>
 
             <!-- Recuperando valores digitados -->
+            <!-- Then adiciona a classe is invalid, caso nome exista na variável memoria. Isso é usado pelo bootstrap para marcar a caixa de texto em vermelho
+                 indicando que existe um erro. -->
+
+            <!-- nomeInformado é uma expressão considional que exibe o valor digitado pela usuária e para ela, caso ele exista.-->
                 <input value="${(cidadeAtual.nome)!}${nomeInformado!}" name="nome" type="text" class="form-control ${(nome??)?then('is-invalid', '')}" 
                 placeholder="Informe o nome da cidade" id="nome">
 
+            <!-- Criando elementos para exibir as mensagens de erro. Eles estão usando a formatação de erro definida pelo bootstrap (invalid-feedback).
+                 Dentro do elemento apresentamos a mensagem de erro acessando o atributo definido no controller, nesse caso nome, usando a sintaxe do freemarker $...
+                 + o nome do atributo que colocamos na variável memoria - nome - e oo marcador do freemarker -! -->
                 <div class="invalid-feedback">
                     ${nome!}
                 </div>
