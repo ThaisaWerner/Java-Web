@@ -43,13 +43,24 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
-<!-- Adicionando dependências semana 05-->
+<!-- 
+	Adicionando dependências semana 05 
+	 Por simplicidade, vamos usar o H2 como SGBD. 
+	 Ele é um banco de dados que pode funcionar tanto em memória como com persistência de disco.
+	 O Spring Boot fornece autoconfiguração para esse BD, só precisamos adicionar a dependência aqui.
+
+	 Com a inserção abaixo, o Maven se encarrega de baixar a dependência e deixá-la disponível para o spring boot e ele faz o resto.
+-->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 
+<!-- 
+	Dependência do spring jpa que é o projeto do spring que além de carregar o próprio JPA, 
+	 carrega também outras funcionalidades para facilitar a persistência de dados 
+-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>

@@ -26,7 +26,11 @@ public final class Cidade {
         return nome;
     }
 
-    /* Adicionando DTO */
+/* Adicionando DTO. Os dois métodos abaixo substituem os métodos do controlador (novaCidade.setNome...), reduzindo o código e
+*  facilitando a manutenção.
+
+* Esse método usa os dados da instancia Cidade atual e retorna um objeto do tipo CidadeEntity
+*/
     public CidadeEntity clonar() {
         var cidadeEntity = new CidadeEntity();
 
@@ -36,6 +40,7 @@ public final class Cidade {
         return cidadeEntity;
     }
 
+/* Esse método recebe um objeto do tipo CidadeEntity como parâmetro e retorna um objeto do tipo Cidade */
     public Cidade clonar(CidadeEntity cidade) {
         return new Cidade(cidade.getNome(), cidade.getEstado());
     }
