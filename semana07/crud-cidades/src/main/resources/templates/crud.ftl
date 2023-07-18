@@ -11,11 +11,15 @@
 
 <body>
 
-<!-- Semana 07 - Criando botão de logout -->
+<!-- Semana 07 - Criando barra de navegação superior e botão de logout -->
     <nav class="navbar navbar-expand-sm bg-dark">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-            <!-- a url logout é definida pelo spring -->
+            <!-- Aqui é o botão e acima é a barra de navegação.
+                 Tudo o que precisamos fazer para que o logout funcione foi criar um link para a URL logout.
+                 Quando o Spring recebe a solicitação dessa URL, ele encerra a sessão da usuária atual e 
+                 redireciona a página para a tela de login
+                 A url logout é definida pelo spring -->
                 <a
                     href="/logout" 
                     class="nav-link btn btn-secondary"

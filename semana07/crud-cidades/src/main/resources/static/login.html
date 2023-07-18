@@ -1,4 +1,4 @@
-<!-- Semana 07 - Criando tela de login
+<!-- Semana 07 - Criando tela de login personalizada
      O nome dos componente é padrão do spring -->
 <!DOCTYPE html>
 <html lang="en">
@@ -17,17 +17,23 @@
             <div class="card">
                 <div class="card-header bg-primary text-white">Dados para Login</div>
                 <div class="card-body">
-                    <form method="POST"> <!-- Nome padrão do spring -->
+                    <form method="POST"> <!-- Nome padrão do spring. Definimos o método de envio de dados do formulário como POST.
+                                              Isso é fundamental, pois o Spring Security espera que os dados de login sejam sempre enviados por POST. -->
                         <div class="form-group">
                             <label for="usuario">Usuário:</label>
                             <input name="username" type="text" class="form-control" placeholder="Informe usuário" id="usuario"> 
-                            <!-- input name username = Nome padrão do spring -->
+                            <!-- Definimos o componente de entrada do nome do usuário como texto.
+                                input name username = Nome padrão do spring -->
                         </div>
 
                         <div class="form-group">
                             <label for="senha">Password</label>
                             <input name="password" type="password" class="form-control" placeholder="Informe senha" id="senha">
-                            <!-- input name password = Nome padrão do spring -->
+                            <!-- Definimos o componente de entrada da senha como password.
+                                input name password = Nome padrão do spring.
+                                
+                                Tanto acima como aqui é para que o Spring Security entenda que estamos enviando o nome e a senha do usuário,
+                                por isso deve ter os atributos com nome padrão do spring (username e password)-->
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
                     </form>

@@ -54,7 +54,8 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-<!-- Semana 07 - Adicionando dependência spring boot security. Apenas com essa dependência a tela de login já funciona -->
+<!-- Semana 07 - Adicionando dependência spring boot security. Apenas com essa dependência a tela de login já funciona.
+	 Mesmo sem criar usuários e senhas, o spring cria um usuário de exemplo e uma senha que aparece no console para usarmos. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
