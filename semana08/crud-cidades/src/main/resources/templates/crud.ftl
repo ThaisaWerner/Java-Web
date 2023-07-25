@@ -12,7 +12,10 @@
 
 <body>
     <nav class="navbar navbar-expand-sm bg-dark">
-    <span class="navbar-brand text-white"></span>
+<!-- Atualizamos aqui para que a página apresente o valor armazenado no atributo de sessão usuariaAtual (lá do cidadeController).
+     Adicionamos o nome da usuária na barra de menu, conforme linha abaixo.
+     O Freemarker permite acessar a sessão usando o objeto Session e do seu lado direito usamos o nome do atributo criado na sessão -->
+    <span class="navbar-brand text-white">${Session.usuariaAtual}</span>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a
